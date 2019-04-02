@@ -1,0 +1,14 @@
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\bin\Debug\netcoreapp2.2\AlgorithmsApp.deps.json
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\bin\Debug\netcoreapp2.2\AlgorithmsApp.runtimeconfig.json
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\bin\Debug\netcoreapp2.2\AlgorithmsApp.runtimeconfig.dev.json
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\bin\Debug\netcoreapp2.2\AlgorithmsApp.dll
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\bin\Debug\netcoreapp2.2\AlgorithmsApp.pdb
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\obj\Debug\netcoreapp2.2\AlgorithmsApp.csprojAssemblyReference.cache
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\obj\Debug\netcoreapp2.2\AlgorithmsApp.csproj.CoreCompileInputs.cache
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\obj\Debug\netcoreapp2.2\AlgorithmsApp.RazorAssemblyInfo.cache
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\obj\Debug\netcoreapp2.2\AlgorithmsApp.RazorAssemblyInfo.cs
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\obj\Debug\netcoreapp2.2\AlgorithmsApp.AssemblyInfoInputs.cache
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\obj\Debug\netcoreapp2.2\AlgorithmsApp.AssemblyInfo.cs
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\obj\Debug\netcoreapp2.2\AlgorithmsApp.RazorTargetAssemblyInfo.cache
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\obj\Debug\netcoreapp2.2\AlgorithmsApp.dll
+D:\Projects\AlgorithmsApp\AlgorithmsApp.API\obj\Debug\netcoreapp2.2\AlgorithmsApp.pdb
