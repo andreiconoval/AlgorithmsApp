@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SortAlgService } from '../services/sort-alg.service';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private sortAlgService: SortAlgService) { }
+  configUrl: number;
   ngOnInit() {
+    this.showInsertAlgTime();
+  }
+
+  showInsertAlgTime() {
+    this.sortAlgService.getTimeForInsertAlg()
+      .subscribe((data: number) => this.configUrl = data);
   }
 
 }
