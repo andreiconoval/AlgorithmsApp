@@ -11,25 +11,25 @@ namespace AlgorithmsApp.Algorithms.SortingAlgorithms
         {
             sw = new Stopwatch();
         }
-        public long IterativeSort( int[] arr)
+        public long IterativeSort(int[] arr)
         {
-           sw.Start();
+            sw.Start();
             for (int i = 0; i < arr.Length; i++)
             {
                 int value = arr[i];
                 int j = i;
 
-                while (j > 0 && arr[j-1] > value)
+                while (j > 0 && arr[j - 1] > value)
                 {
-                    arr[j] = arr[j-1];
+                    arr[j] = arr[j - 1];
                     j--;
                 }
 
                 arr[j] = value;
             }
             sw.Stop();
-            var ss = sw.ElapsedMilliseconds;
-            return ss;
+            return sw.ElapsedMilliseconds;
+
         }
 
 
@@ -40,17 +40,17 @@ namespace AlgorithmsApp.Algorithms.SortingAlgorithms
             int value = arr[i];
             int j = i;
 
-            while (j > 0 && arr[j-1] > value)
+            while (j > 0 && arr[j - 1] > value)
             {
-                arr[j] = arr[j-1];
+                arr[j] = arr[j - 1];
                 j--;
             }
 
             arr[j] = value;
 
-            if(i+1 <= n )
+            if (i + 1 <= n)
             {
-                executedTime += RecursiveSort(ref executedTime, ref arr, i+1, n);
+                executedTime += RecursiveSort(ref executedTime, ref arr, i + 1, n);
             }
 
             sw.Stop();
