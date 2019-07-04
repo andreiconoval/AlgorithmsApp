@@ -9,13 +9,19 @@ import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 
 import { SortAlgService } from './services/sort-alg.service';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LineChartComponent } from './line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    MainComponent
+    MainComponent,
+    SidebarComponent,
+    DashboardComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,

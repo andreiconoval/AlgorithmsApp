@@ -1,41 +1,11 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div style="background-color:#7C4DFF; color:white;" class="col-md-3">
-      <div class="" role="complementary">
-        SOmething for routing meybe routing
-      </div>
-    </div>
-    <div style="background-color:rgb(221, 221, 221);" class="col-md-9" role="main">
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Time</th>
-            <th scope="col">Number of Elements</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Insertion Algorithm</td>
-            <td>{{configUrl}}</td>
-            <td>1000</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <app-sidebar></app-sidebar>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+<app-dashboard></app-dashboard>
+    </main>
   </div>
 </div>
