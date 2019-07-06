@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using AlgorithmsApp.Algorithms.SortingAlgorithms;
 using AlgorithmsApp.API.Algorithms;
+using AlgorithmsApp.API.Algorithms.Sorting;
+using AlgorithmsApp.API.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AlgorithmsApp.Controllers
 {
@@ -14,13 +15,27 @@ namespace AlgorithmsApp.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult Get()
-        {             
+        public IActionResult Get()
+        {
+            var list = new List<AlgStat>();
+            long insertTime, selectTime, bubbleTIme = 1;
             var gen = new GenerateList();
-            var insert =  new InsertionSorting();
-            int[] arr = gen.ListOfIntegers(10000);
-            var values =  insert.IterativeSort(arr);
-            return Ok(values);
+            var insert = new InsertionSorter();
+            var select = new SelectionSorter();
+            var bubble = new BubbleSorter();
+
+            int[] arr = gen.ListOfIntegers(1000);
+
+            insertTime = insert.Iterative(arr);
+            selectTime = select.Iterative(arr);
+            bubbleTIme = bubble.Iterative(arr);
+
+            list.Add(new AlgStat() { ExecTime = insertTime, Name = "Insert" });
+            list.Add(new AlgStat() { ExecTime = selectTime, Name = "select" });
+            list.Add(new AlgStat() { ExecTime = bubbleTIme, Name = "bubble" });
+
+
+            return Ok(list);
         }
 
         // GET api/values/5

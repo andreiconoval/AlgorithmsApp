@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 #endregion
-namespace AlgorithmsApp.API.Algorithms.SortingAlgorithms
+namespace AlgorithmsApp.Algorithms.Sorting
 {
     #region Parallel Sort
 
-    public static class Sort
+    public static class ParallelSorter
     {
         public static int Threshold = 150; // array length to use InsertionSort instead of SequentialQuickSort
 
