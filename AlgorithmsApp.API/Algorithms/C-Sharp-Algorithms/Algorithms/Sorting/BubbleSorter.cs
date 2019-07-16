@@ -12,7 +12,7 @@ namespace AlgorithmsApp.API.Algorithms.C_Sharp_Algorithms.lgorithms.Sorting
         }
 
         /// <summary>
-        /// Public API: Sorts ascending
+        /// Public API: Sorts                    
         /// </summary>
         public static void BubbleSortAscending<T>(this IList<T> collection, Comparer<T> comparer)
         {

@@ -21,7 +21,7 @@ namespace AlgorithmsApp.API.Controllers
         }
 
 
-        [HttpPut("{lenght}")]
+        [HttpPut("{length}")]
         public async Task<IActionResult> Put(int lenght)
         {
             try

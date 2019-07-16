@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using AlgorithmsApp.API.Models;
 using AlgorithmsApp.API.Algorithms;
 using System;
+using Microsoft.Extensions.Configuration;
 
 namespace AlgorithmsApp.API.Data
 {
@@ -15,38 +16,96 @@ namespace AlgorithmsApp.API.Data
             _context = context;
         }
 
-        public async Task<List<Algorithm>> GetAlgoritmsAsync()
+        public DataManager()
+        {
+            string projectPath = AppDomain.CurrentDomain.BaseDirectory.Split(new String[] { @"bin\" }, StringSplitOptions.None)[0];
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                                                    .SetBasePath(projectPath)
+                                                    .AddJsonFile("appsettings.json")
+                                                    .Build();
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            _context = new DataContext(configuration);
+        }
+
+        public async Task<List<Algorithm>> GetAlgorithmsAsync()
         {
             var algorithms = await _context.Algorithms.ToListAsync();
             return algorithms;
         }
 
+        public async Task<Algorithm> GetAlgorithmAsync(string name)
+        {
+            var algorithms = await _context.Algorithms.FirstOrDefaultAsync(a => a.Name == name);
+            return algorithms;
+        }
+
+        public async Task<bool> AddOrUpdateAlgorithm(string name)
+        {
+            try
+            {
+                var isAlgorithim = await _context.Algorithms.AnyAsync(m => m.Name == name);
+                if (!isAlgorithim)
+                {
+                    var algorithm = new Algorithm()
+                    {
+                        Name = name,
+                        Description = "Generated"
+                    };
+                    await _context.Algorithms.AddAsync(algorithm);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                else { return false; }
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<List<AlgorithmStatistic>> GetAlgoritmsStatisticAsync()
+        {
+            var algorithmsStatistic = await _context.AlgorithmStatistics.ToListAsync();
+            return algorithmsStatistic;
+        }
+
+        public async Task<bool> AddAloritmStatistic()
+        {
+            await Task.Delay(200);
+            return false;
+        }
+
         public async Task<bool> GenerateMocks(int length)
         {
-            try{
-            var isMock = await _context.MockDatas.AnyAsync(m => m.NumberOfElements == length);
-            if (!isMock)
+            try
             {
-                var gen = new GenerateList();
-                int[] arr = gen.ListOfIntegers(length);
+                var isMock = await _context.MockDatas.AnyAsync(m => m.NumberOfElements == length);
+                if (!isMock)
+                {
+                    var gen = new GenerateList();
+                    int[] arr = gen.ListOfIntegers(length);
 
-                var mock =  new MockData() {
-                    NumberOfElements = length,
-                    SetOfData = string.Join(',', arr)
-                };
+                    var mock = new MockData()
+                    {
+                        NumberOfElements = length,
+                        SetOfData = string.Join(',', arr)
+                    };
 
-                await _context.MockDatas.AddAsync(mock);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            else return  false;
-           
+                    await _context.MockDatas.AddAsync(mock);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                else return false;
+
 
             }
-            catch {
-                return false ;
+            catch
+            {
+                return false;
             }
-           
+
         }
     }
 }

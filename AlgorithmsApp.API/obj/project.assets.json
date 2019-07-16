@@ -2748,6 +2748,15 @@
           }
         }
       },
+      "NCrontab/3.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NCrontab.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NCrontab.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -7402,6 +7411,24 @@
         "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "NCrontab/3.3.1": {
+      "sha512": "G3tzcIIgsiyZyVbHNPyn5+adaM9UjeVNgjrRsvXU7wo2sMhpvpQrir29dcjIND53H/fuTdgg9nI3SfFFg7barA==",
+      "type": "package",
+      "path": "ncrontab/3.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "COPYING.txt",
+        "lib/net35/NCrontab.dll",
+        "lib/net35/NCrontab.pdb",
+        "lib/netstandard1.0/NCrontab.dll",
+        "lib/netstandard1.0/NCrontab.pdb",
+        "lib/netstandard2.0/NCrontab.dll",
+        "lib/netstandard2.0/NCrontab.pdb",
+        "ncrontab.3.3.1.nupkg.sha512",
+        "ncrontab.nuspec"
       ]
     },
     "NETStandard.Library/2.0.3": {
@@ -12408,7 +12435,8 @@
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.2.4",
-      "Microsoft.NETCore.App >= 2.2.0"
+      "Microsoft.NETCore.App >= 2.2.0",
+      "NCrontab >= 3.3.1"
     ]
   },
   "packageFolders": {
@@ -12418,11 +12446,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\AlgorithmsApp\\AlgorithmsApp.API\\AlgorithmsApp.csproj",
+      "projectUniqueName": "d:\\Projects\\AlgorithmsApp\\AlgorithmsApp.API\\AlgorithmsApp.csproj",
       "projectName": "AlgorithmsApp",
-      "projectPath": "D:\\Projects\\AlgorithmsApp\\AlgorithmsApp.API\\AlgorithmsApp.csproj",
+      "projectPath": "d:\\Projects\\AlgorithmsApp\\AlgorithmsApp.API\\AlgorithmsApp.csproj",
       "packagesPath": "C:\\Users\\COmp\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\AlgorithmsApp\\AlgorithmsApp.API\\obj\\",
+      "outputPath": "d:\\Projects\\AlgorithmsApp\\AlgorithmsApp.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12470,6 +12498,10 @@
             "target": "Package",
             "version": "[2.2.0, )",
             "autoReferenced": true
+          },
+          "NCrontab": {
+            "target": "Package",
+            "version": "[3.3.1, )"
           }
         },
         "imports": [

@@ -14,10 +14,17 @@ namespace AlgorithmsApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetValues()
+        public async Task<IActionResult> GetAlgorithms()
         {
-            var algorithms = await dataManager.GetAlgoritmsAsync();
+            var algorithms = await dataManager.GetAlgorithmsAsync();
             return Ok(algorithms);
+        }
+
+        public async Task<IActionResult> AlgorithmsStatistics()
+        {
+            var algStat = await dataManager.GetAlgoritmsStatisticAsync();
+            return Ok(algStat);
+
         }
     }
 }
