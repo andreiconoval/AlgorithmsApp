@@ -16,16 +16,17 @@ namespace AlgorithmsApp.API.Data
             _context = context;
         }
 
-        public DataManager()
-        {
-            string projectPath = AppDomain.CurrentDomain.BaseDirectory.Split(new String[] { @"bin\" }, StringSplitOptions.None)[0];
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                                                    .SetBasePath(projectPath)
-                                                    .AddJsonFile("appsettings.json")
-                                                    .Build();
-            string connectionString = configuration.GetConnectionString("DefaultConnection");
-            _context = new DataContext(configuration);
-        }
+        // public DataManager()
+        // {
+        //     DbContextOptions<DataContext> options;
+        //     string projectPath = AppDomain.CurrentDomain.BaseDirectory.Split(new String[] { @"bin\" }, StringSplitOptions.None)[0];
+        //     IConfigurationRoot configuration = new ConfigurationBuilder()
+        //                                             .SetBasePath(projectPath)
+        //                                             .AddJsonFile("appsettings.json")
+        //                                             .Build();
+        //     string connectionString = configuration.GetConnectionString("DefaultConnection");
+        //     _context = new DataContext(configuration);
+        // }
 
         public async Task<List<Algorithm>> GetAlgorithmsAsync()
         {
@@ -60,8 +61,9 @@ namespace AlgorithmsApp.API.Data
             }
             catch (Exception e)
             {
-                return false;
+                throw e;
             }
+
 
         }
 
@@ -71,10 +73,23 @@ namespace AlgorithmsApp.API.Data
             return algorithmsStatistic;
         }
 
-        public async Task<bool> AddAloritmStatistic()
+        public async Task<bool> AddAloritmStatistic(AlgorithmStatistic algorithmsStatistic)
         {
-            await Task.Delay(200);
-            return false;
+            try
+            {
+                await _context.AlgorithmStatistics.AddAsync(algorithmsStatistic);
+                await _context.SaveChangesAsync();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<List<MockData>> GetMocks(){
+            return await _context.MockDatas.ToListAsync();
         }
 
         public async Task<bool> GenerateMocks(int length)
@@ -84,7 +99,7 @@ namespace AlgorithmsApp.API.Data
                 var isMock = await _context.MockDatas.AnyAsync(m => m.NumberOfElements == length);
                 if (!isMock)
                 {
-                    var gen = new GenerateList();
+                    var gen = new ListGenerator();
                     int[] arr = gen.ListOfIntegers(length);
 
                     var mock = new MockData()
@@ -101,9 +116,9 @@ namespace AlgorithmsApp.API.Data
 
 
             }
-            catch
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
 
         }

@@ -19,7 +19,7 @@ namespace AlgorithmsApp.Controllers
         {
             var list = new List<AlgStat>();
             long insertTime, selectTime, bubbleTIme = 1;
-            var gen = new GenerateList();
+            var gen = new ListGenerator();
             var insert = new InsertionSorter();
             var select = new SelectionSorter();
             var bubble = new BubbleSorter();

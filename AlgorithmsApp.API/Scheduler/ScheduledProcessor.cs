@@ -1,6 +1,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AlgorithmsApp.API.Data;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NCrontab;
 
@@ -10,8 +12,8 @@ namespace AlgorithmsApp.API.Scheduler
     {
         private CrontabSchedule _schedule;
         private DateTime _nextRun;
-        protected abstract string Schedule{get;}
-        public ScheduledProcessor(IServiceScopeFactory serviceScopeFactory) : base(serviceScopeFactory)
+        protected abstract string Schedule { get; }
+        public ScheduledProcessor(IServiceScopeFactory serviceScopeFactory, IConfiguration configuration) : base(serviceScopeFactory, configuration)
         {
             _schedule = CrontabSchedule.Parse(Schedule);
             _nextRun = _schedule.GetNextOccurrence(DateTime.Now);
@@ -23,7 +25,7 @@ namespace AlgorithmsApp.API.Scheduler
             {
                 var now = DateTime.Now;
                 var nextRun = _schedule.GetNextOccurrence(now);
-                if(nextRun > _nextRun)
+                if (nextRun > _nextRun)
                 {
                     await Process();
                     _nextRun = _schedule.GetNextOccurrence(DateTime.Now);

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AlgorithmsApp.API.Algorithms
 {
-    public class GenerateList
+    public class ListGenerator
     {
         public int[] ListOfIntegers(int numOfInts)
         {

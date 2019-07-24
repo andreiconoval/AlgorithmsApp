@@ -6,22 +6,22 @@ namespace AlgorithmsApp.API.Data
 {
     public class DataContext : DbContext
     { 
-        public IConfiguration Configuration { get; }
+        //private IConfiguration Configuration { get; }
         
-        public DataContext(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        // public DataContext(IConfiguration configuration)
+        // {
+        //     Configuration = configuration;
+        // }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
-            }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     if (!optionsBuilder.IsConfigured)
+        //     {
+        //         optionsBuilder.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+        //     }
 
-        }
+        // }
 
 
         public DbSet<Algorithm> Algorithms { get; set; }

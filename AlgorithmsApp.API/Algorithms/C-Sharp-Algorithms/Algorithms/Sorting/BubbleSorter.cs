@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AlgorithmsApp.API.Algorithms.C_Sharp_Algorithms.Algorithms.Common;
 
-namespace AlgorithmsApp.API.Algorithms.C_Sharp_Algorithms.lgorithms.Sorting
+namespace AlgorithmsApp.API.Algorithms.C_Sharp_Algorithms.Algorithms.Sorting
 {
     public static class BubbleSorter
     {

@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace AlgorithmsApp.API.Scheduler
@@ -8,6 +9,13 @@ namespace AlgorithmsApp.API.Scheduler
     {
         private Task _executingTask;
         private readonly CancellationTokenSource _stoppingCts = new CancellationTokenSource();
+        private readonly IServiceScopeFactory scopeFactory;
+
+        public BackgroundService(IServiceScopeFactory scopeFactory)
+        {
+            this.scopeFactory = scopeFactory;
+        }
+
         public Task StartAsync(CancellationToken cancellationToken)
         {
             // Store the  task we're executing
@@ -15,7 +23,7 @@ namespace AlgorithmsApp.API.Scheduler
 
             // If the task is completed then return it
             // this will bubble cancelation and failure to the canceler
-            if(_executingTask.IsCompleted)
+            if (_executingTask.IsCompleted)
                 return _executingTask;
 
             // Otherwise it's running
@@ -24,35 +32,35 @@ namespace AlgorithmsApp.API.Scheduler
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-           // Stop called without start
-        if (_executingTask == null)
-        {
-            return;
-        }
- 
-        try
-        {
-            // Signal cancellation to the executing method
-            _stoppingCts.Cancel();
-        }
-        finally
-        {
-            // Wait until the task completes or the stop token triggers
-            await Task.WhenAny(_executingTask, Task.Delay(Timeout.Infinite,cancellationToken));
-        }
+            // Stop called without start
+            if (_executingTask == null)
+            {
+                return;
+            }
+
+            try
+            {
+                // Signal cancellation to the executing method
+                _stoppingCts.Cancel();
+            }
+            finally
+            {
+                // Wait until the task completes or the stop token triggers
+                await Task.WhenAny(_executingTask, Task.Delay(Timeout.Infinite, cancellationToken));
+            }
         }
 
         protected virtual async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-             //stoppingToken.Register(() =>
-             //        _logger.LogDebug($" GracePeriod background task is stopping."));
+            //stoppingToken.Register(() =>
+            //        _logger.LogDebug($" GracePeriod background task is stopping."));
             do
             {
                 await Process();
 
                 await Task.Delay(5000, stoppingToken);
             }
-            while(!stoppingToken.IsCancellationRequested);
+            while (!stoppingToken.IsCancellationRequested);
         }
 
         public abstract Task Process();

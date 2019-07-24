@@ -22,11 +22,11 @@ namespace AlgorithmsApp.API.Controllers
 
 
         [HttpPut("{length}")]
-        public async Task<IActionResult> Put(int lenght)
+        public async Task<IActionResult> Put(int length)
         {
             try
             {
-                var response = await dataManager.GenerateMocks(lenght);
+                var response = await dataManager.GenerateMocks(length);
                 if (response) return Ok();
                 else return Ok("Already exist");
             }

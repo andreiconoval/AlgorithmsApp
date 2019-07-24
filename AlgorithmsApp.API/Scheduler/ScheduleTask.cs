@@ -11,19 +11,24 @@ namespace AlgorithmsApp.API.Scheduler
         private StringSettings _stringSettings;
         private string _schedule = "*/3 * * * *";
         private DbTaskManager _dbTaskManager;
-        public ScheduleTask(IServiceScopeFactory serviceScopeFactory, IConfiguration configuration) : base(serviceScopeFactory)
+
+        public ScheduleTask(IServiceScopeFactory serviceScopeFactory, IConfiguration configuration) : base(serviceScopeFactory, configuration)
         {
             _stringSettings = new StringSettings(configuration);
             _schedule = _stringSettings.GetSchedule();
-            _dbTaskManager = new DbTaskManager();
         }
 
-        protected override string Schedule =>  _schedule; //Runs every 100 minutes
+        protected override string Schedule => _schedule; //Runs every 100 minutes
 
         public override Task ProcessInScopeAsync(IServiceProvider serviceProvider)
         {
             Console.WriteLine("Process strat here" + _schedule);
+
+            var dbContext = serviceProvider.GetRequiredService<DataContext>();
+            _dbTaskManager = new DbTaskManager(dbContext);
+
             var temp = _dbTaskManager.GenerateAlgorithmsStatistics();
+
             return Task.CompletedTask;
         }
     }
