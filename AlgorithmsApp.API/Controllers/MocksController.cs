@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using AlgorithmsApp.API.Algorithms;
 using AlgorithmsApp.API.Data;
+using AlgorithmsApp.API.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlgorithmsApp.API.Controllers
@@ -21,14 +23,22 @@ namespace AlgorithmsApp.API.Controllers
         }
 
 
-        [HttpPut("{length}")]
-        public async Task<IActionResult> Put(int length)
+        public async Task<IActionResult> Put([FromBody]MockSettings mockSettings)
         {
+
             try
             {
-                var response = await dataManager.GenerateMocks(length);
-                if (response) return Ok();
-                else return Ok("Already exist");
+                if(mockSettings == null) mockSettings = new MockSettings();
+                var gen = new ListGenerator();
+                var steps = gen.GetSeps(mockSettings);
+                var mockLength = mockSettings.MinValue;
+                for (int i = 0; i < steps.Length - 1; i++)
+                {
+                    int[] arr = gen.ListOfIntegers(mockLength);
+                    await dataManager.GenerateMocks(string.Join(',', arr),mockLength);
+                    mockLength += (int)steps[i];      
+                }
+                if (true) return Ok();
             }
             catch (Exception ex)
             {

@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AlgorithmsApp.API.Models;
-using AlgorithmsApp.API.Algorithms;
 using System;
-using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace AlgorithmsApp.API.Data
 {
@@ -88,39 +87,35 @@ namespace AlgorithmsApp.API.Data
             }
         }
 
-        public async Task<List<MockData>> GetMocks(){
+        public async Task<List<MockData>> GetMocks()
+        {
             return await _context.MockDatas.ToListAsync();
         }
 
-        public async Task<bool> GenerateMocks(int length)
+        public async Task<bool> GenerateMocks(string setOfMock, int numberOfElements)
         {
+
             try
             {
-                var isMock = await _context.MockDatas.AnyAsync(m => m.NumberOfElements == length);
+                var isMock = _context.MockDatas.Any(m => m.NumberOfElements == numberOfElements);
                 if (!isMock)
                 {
-                    var gen = new ListGenerator();
-                    int[] arr = gen.ListOfIntegers(length);
-
                     var mock = new MockData()
                     {
-                        NumberOfElements = length,
-                        SetOfData = string.Join(',', arr)
+                        NumberOfElements = numberOfElements,
+                        SetOfData = setOfMock
                     };
 
-                    await _context.MockDatas.AddAsync(mock);
+                    _context.MockDatas.Add(mock);
                     await _context.SaveChangesAsync();
                     return true;
                 }
                 else return false;
-
-
             }
             catch (Exception e)
             {
                 throw e;
             }
-
         }
     }
 }
