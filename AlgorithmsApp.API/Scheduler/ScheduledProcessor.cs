@@ -27,7 +27,7 @@ namespace AlgorithmsApp.API.Scheduler
                 var nextRun = _schedule.GetNextOccurrence(now);
                 if (nextRun > _nextRun)
                 {
-                    //await Process();
+                    await Process();
                     _nextRun = _schedule.GetNextOccurrence(DateTime.Now);
                 }
                 await Task.Delay(5000, stoppingToken); // 5 seconds delay

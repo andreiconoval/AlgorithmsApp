@@ -72,11 +72,11 @@ namespace AlgorithmsApp.API.Data
             return algorithmsStatistic;
         }
 
-        public async Task<bool> AddAloritmStatistic(AlgorithmStatistic algorithmsStatistic)
+        public async Task<bool> AddAloritmStatisticAsync(AlgorithmStatistic algorithmsStatistic)
         {
             try
             {
-                await _context.AlgorithmStatistics.AddAsync(algorithmsStatistic);
+                 _context.AlgorithmStatistics.Add(algorithmsStatistic);
                 await _context.SaveChangesAsync();
                 return true;
 

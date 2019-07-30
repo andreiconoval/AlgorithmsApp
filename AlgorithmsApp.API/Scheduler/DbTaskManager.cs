@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AlgorithmsApp.API.Algorithms.C_Sharp_Algorithms.Algorithms.Sorting;
 using AlgorithmsApp.API.Common;
 using AlgorithmsApp.API.Data;
-
+using AlgorithmsApp.API.Models;
 
 namespace AlgorithmsApp.API.Scheduler
 {
@@ -17,11 +17,6 @@ namespace AlgorithmsApp.API.Scheduler
         {
             AlgorithmsList = EnumConverter.EnumToList<AlgorithmsEnum>();
             dataManager = new DataManager(context);
-        }
-        public DbTaskManager(IList algorithmsList)
-        {
-            this.AlgorithmsList = algorithmsList;
-
         }
         private IList AlgorithmsList { get; set; }
 
@@ -52,6 +47,17 @@ namespace AlgorithmsApp.API.Scheduler
                     if (data != null)
                         foreach (KeyValuePair<string, long> item in data)
                         {
+                            var algorithm = await dataManager.GetAlgorithmAsync(item.Key);
+                            if (algorithm != null)
+                            {
+                                var algStat = new AlgorithmStatistic(){
+                                    AlgorithmId = algorithm.Id,
+                                    Date = DateTime.Now,
+                                    ExecutedTime = item.Value,
+                                    MockDataId = mock.Id
+                                };
+                                await dataManager.AddAloritmStatisticAsync(algStat);
+                            }
                             Console.WriteLine("Key: {0}, Value: {1}", item.Key, item.Value);
                         }
                 }
