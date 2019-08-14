@@ -12,7 +12,7 @@
   </div>
 </div>
 
-  <app-line-chart></app-line-chart>
+  <app-line-chart *ngIf="datasets !== undefined" [datasets]="datasets"></app-line-chart>
 
 
 <h2>Section title</h2>

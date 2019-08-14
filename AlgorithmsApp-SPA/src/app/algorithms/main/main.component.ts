@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SortAlgService } from '../services/sort-alg.service';
+import { StatisticsService, AlgStatistic, Dataset } from '../services/statistics.service';
 
 @Component({
   selector: 'app-main',
@@ -9,10 +10,10 @@ import { SortAlgService } from '../services/sort-alg.service';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private sortAlgService: SortAlgService) { }
+  constructor(private sortAlgService: SortAlgService, private statistics: StatisticsService) { }
   configUrl: number;
+  algStatistics: AlgStatistic[];
   ngOnInit() {
-    this.showInsertAlgTime();
   }
 
   showInsertAlgTime() {

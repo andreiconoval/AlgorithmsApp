@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using AlgorithmsApp.API.Models;
 using System;
 using System.Linq;
+using AlgorithmsApp.API.Dtos;
 
 namespace AlgorithmsApp.API.Data
 {
@@ -66,17 +67,40 @@ namespace AlgorithmsApp.API.Data
 
         }
 
-        public async Task<List<AlgorithmStatistic>> GetAlgoritmsStatisticAsync()
+        public async Task<List<AlgStatistic>> GetAlgoritmsStatisticAsync()
         {
-            var algorithmsStatistic = await _context.AlgorithmStatistics.ToListAsync();
-            return algorithmsStatistic;
+            try
+            {
+                List<AlgStatistic> statistics = await _context.AlgorithmStatistics
+                            .Include("Algorithm")
+                            .Include("MockData")
+                            .GroupBy(p => p.AlgorithmId,
+                                     (k, c) => new AlgStatistic()
+                                     {
+                                         AlgId = k,
+                                         AlgName = c.Select(a => a.Algorithm.Name).FirstOrDefault(),
+                                         Statistics = c.Select(cs => new Statistic()
+                                         {
+                                             Id = cs.Id,
+                                             MockLength = cs.MockData.NumberOfElements,
+                                             ExecutedTime = cs.ExecutedTime,
+                                             Date = cs.Date
+                                         }).Take(100).TakeLast(50).ToList()
+                                     }
+                                    ).ToListAsync();
+
+                return statistics;
+            }
+            catch (Exception e) { throw new Exception(e.Message); };
+
+
         }
 
         public async Task<bool> AddAloritmStatisticAsync(AlgorithmStatistic algorithmsStatistic)
         {
             try
             {
-                 _context.AlgorithmStatistics.Add(algorithmsStatistic);
+                _context.AlgorithmStatistics.Add(algorithmsStatistic);
                 await _context.SaveChangesAsync();
                 return true;
 
